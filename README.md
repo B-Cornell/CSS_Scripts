@@ -63,10 +63,20 @@ Output- treefile_X00_Y00.csv
 
 ----------
 
-7. Manually push all of the treefiles together and look at data
+7. Manually push all of the treefiles together and run probability finding code
 
-Code- angleprobhist.py extractor.py
+Code- CosmoSimProbabilityFinder.py
 
 Input-treesfile
 
-Output- Plots/
+Output- anglehistsbysmallsep.txt
+
+----------
+
+8. Show all the PDFs of each cluster at different impact parameters
+
+Code- PDFmaker.py
+
+Input- (copied anglehistsbysmallsep.txt into PDFmaker.py)
+
+Output- PDFs of each cluster
