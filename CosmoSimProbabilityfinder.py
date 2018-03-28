@@ -3,16 +3,19 @@ import math
 import matplotlib.pyplot as plt
 import sys
 
-generalmass, generalpericenter, individualclusters = False, False, False
+generalmass, generalpericenter, individualclusters, binned, notbinned = False, False, False, False, False
 for a in sys.argv:
 	if a == 'mass':
 		generalmass = True
-for a in sys.argv:
 	if a == 'pericenter':
 		generalpericenter = True
-for a in sys.argv:
 	if a == 'clusters':
 		individualclusters = True
+	if a == 'bins':
+		binned = True
+	if a == 'cuts':
+		notbinned = True
+
 
 
 
@@ -25,17 +28,15 @@ musketball = ['Musketball', 1.0, .14, 670, 330, 3.1E14, 1.2E14, 1.7E14, 2.0E14]
 ciza = ['Ciza', 1.3, .13, 69, 190, 11E14, 3.7E14, 9.8E14, 3.8E14]
 rxcj1314 = ['RXCJ1314', .54, .23, 1523, 149, 6.07E14, 1.8E14, 7.17E14, 2.8E14]
 bullet = ['Bullet', .72, .025, 616, 80, 15E14, 1.5E14, 1.5E14, .15E14]
-bulletrevised = ['Bullet Revised', .72, .079, 616, 251, 15E14, 4.71E14, 1.5E14, .47E14]
+bulletrevised = ['BulletRevised', .72, .079, 616, 251, 15E14, 4.71E14, 1.5E14, .47E14]
 a1240 = ['A1240', .987, .099, 394, 118, 4.19E14, .99E14, 4.58E14, 1.4E14]
 a3411 = ['A3411', 1.4, .2, 80, 170, 14E14, 5e14, 18e14, 5e14]
 macsj1149 = ['MACSJ1149', .995, .064, 302, 219, 16.7E14, 1.3E14, 10.9E14, 3.4E14]
-macsj1149revised = ['MACSJ1149', .995, .128, 302, 438, 16.7E14, 2.6E14, 10.9E14, 6.8E14]
 macsj1752 = ['MACSJ1752', 1.145, .115, 114, 158, 12.04E14, 2.59E14, 13.22E14, 3.14E14]
 zwci0008 = ['ZWCI0008', .924, .243, 92, 164, 5.7E14, 2.8E14, 1.2E14, 1.4E14]
 zwci1856 = ['ZWCI1856', .925, .093, 189, 267, 9.66E14, 4.06E14, 7.6E14, 4.05E14]
 a3667 = ['A3667', 1, .1, 525, 108, 14.59E14, 2.74E14, 13.26E14, 2.67E14]
-a3667revised = ['A3667', 1, .2, 525, 206, 14.59E14, 5.48E14, 13.26E14, 5.34E14]
-elgordo = ['El Gordo', .7, .1, 476, 242, 13.8E14, 2.2E14, 1.8E14, 2E14]
+elgordo = ['ElGordo', .7, .1, 476, 242, 13.8E14, 2.2E14, 1.8E14, 2E14]
 a3376 = ['A3376', 1.096, .066, 181, 147, 3.0E14, 1.7E14, 0.9E14, 0.8E14]
 macsj0025 = ['MACSJ0025', .518, .116, 100, 80, 2.5E14, 1.7E14, 2.6E14, 1.4E14]
 
@@ -56,18 +57,26 @@ C3 = ['C3', 1.5, .2, 1000, 150, 1E14, 1E14, 1E14, 1E14]
 listofpairs = []
 #f = open('ThreePDFsxxx.txt', "w")
 generallist = [A1,B1,C1,A2,B2,C2,A3,B3,C3]
-clusterlist = [musketball, ciza, rxcj1314, bullet, bulletrevised, a1240, a3411, macsj1149, macsj1149revised, macsj1752, zwci0008, zwci1856, a3667, a3667revised, elgordo, a3376, macsj0025]
+clusterlist = [musketball, ciza, rxcj1314, bullet, bulletrevised, a1240, a3411, macsj1149, macsj1752, zwci0008, zwci1856, a3667, elgordo, a3376, macsj0025]
 
-
-if generalmass == True:
-	fm = open("GeneralMassPDFs_masselif_periless3.txt", "w")
-	for a in generallist: listofpairs.append(a)
-if generalpericenter == True:
-	fp = open("GeneralPericenterPDFselif.txt", "w")
-	if generalmass == False:
+if notbinned == True:
+	if generalmass == True:
+		fmn = open("DataFiles/GeneralMassPDFs_cuts_peri300.txt", "w")
 		for a in generallist: listofpairs.append(a)
+	if generalpericenter == True:
+		fpn = open("DataFiles/GeneralPericenterPDFs_cuts.txt", "w")
+		if generalmass == False:
+			for a in generallist: listofpairs.append(a)
+if binned == True:
+	if generalmass == True:
+		fmb = open("DataFiles/GeneralMassPDFs_bins_peri300.txt", "w")
+		for a in generallist: listofpairs.append(a)
+	if generalpericenter == True:
+		fpb = open("DataFiles/GeneralPericenterPDFs_bins.txt", "w")
+		if generalmass == False:
+			for a in generallist: listofpairs.append(a)
 if individualclusters == True:
-	fc = open("ClusterPDFs.txt", "w")
+	fc = open("DataFiles/ClusterPDFs.txt", "w")
 	for a in clusterlist: listofpairs.append(a)
 #assign input values for each cluster
 
@@ -86,14 +95,24 @@ for cluster in listofpairs:
 	massbsig  = cluster[8]
 
 	anglehist    = [0] * 51
-	anglehistsep100 = [0] * 51
-	anglehistsep300 = [0] * 51
-	anglehistsep500 = [0] * 51
-	anglehistsep700 = [0] * 51
-	anglehistmass5 = [0] * 51
-	anglehistmass10 = [0] * 51
-	anglehistmass15 = [0] * 51
-	anglehistmasshigh = [0] * 51
+
+	anglehistsep100b = [0] * 51
+	anglehistsep300b = [0] * 51
+	anglehistsep500b = [0] * 51
+	anglehistsep700b = [0] * 51
+	anglehistmass5b = [0] * 51
+	anglehistmass10b = [0] * 51
+	anglehistmass15b = [0] * 51
+	anglehistmasshighb = [0] * 51
+
+	anglehistsep100n = [0] * 51
+	anglehistsep300n = [0] * 51
+	anglehistsep500n = [0] * 51
+	anglehistsep700n = [0] * 51
+	anglehistmass5n = [0] * 51
+	anglehistmass10n = [0] * 51
+	anglehistmass15n = [0] * 51
+	anglehistmasshighn = [0] * 51
 
 
 	r = 0
@@ -169,77 +188,134 @@ for cluster in listofpairs:
 
 
 
-				if generalmass == True and sepnumber < .3 and cluster in generallist:
+				if generalmass == True and sepnumber < .3 and notbinned == True and cluster in generallist:
 					if b < 50:
 						h = b
-						anglehist[h] += total_prob
 						if totalmass < 5E14:
-							anglehistmass5[h] += total_prob
-						elif totalmass < 10E14:
-							anglehistmass10[h] += total_prob
-						elif totalmass < 15E14:
-							anglehistmass15[h] += total_prob
-						else:
-							anglehistmasshigh[h] += total_prob
+							anglehistmass5n[h] += total_prob
+						if totalmass < 10E14:
+							anglehistmass10n[h] += total_prob
+						if totalmass < 15E14:
+							anglehistmass15n[h] += total_prob
+						if totalmass > 0:
+							anglehistmasshighn[h] += total_prob
 					elif b == 50:
 						h = b
-						anglehist[h] += 2*total_prob
 						if totalmass < 5E14:
-							anglehistmass5[h] += 2*total_prob
-						elif totalmass < 10E14:
-							anglehistmass10[h] += 2*total_prob
-						elif totalmass < 15E14:
-							anglehistmass15[h] += 2*total_prob
-						else:
-							anglehistmasshigh[h] += 2*total_prob
+							anglehistmass5n[h] += 2*total_prob
+						if totalmass < 10E14:
+							anglehistmass10n[h] += 2*total_prob
+						if totalmass < 15E14:
+							anglehistmass15n[h] += 2*total_prob
+						if totalmass > 0:
+							anglehistmasshighn[h] += 2*total_prob
 					else:
 						h = 50 - (b-50)
-						anglehist[h] += total_prob
 						if totalmass < 5E14:
-							anglehistmass5[h] += total_prob_mass
-						elif totalmass < 10E14:
-							anglehistmass10[h] += total_prob_mass
-						elif totalmass < 15E14:
-							anglehistmass15[h] += total_prob_mass
-						else:
-							anglehistmasshigh[h] += total_prob_mass
+							anglehistmass5n[h] += total_prob_mass
+						if totalmass < 10E14:
+							anglehistmass10n[h] += total_prob_mass
+						if totalmass < 15E14:
+							anglehistmass15n[h] += total_prob_mass
+						if totalmass > 0:
+							anglehistmasshighn[h] += total_prob_mass
 
-				if generalpericenter == True and cluster in generallist:
+				if generalpericenter == True and notbinned == True and cluster in generallist:
 					if b < 50:
 						h = b
-						anglehist[h] += total_prob
+
 						if sepnumber < .1:
-							anglehistsep100[h] += total_prob
-						elif sepnumber < .3:
-							anglehistsep300[h] += total_prob
-						elif sepnumber < .5:
-							anglehistsep500[h] += total_prob
-						else:
-							anglehistsep700[h] += total_prob
+							anglehistsep100n[h] += total_prob
+						if sepnumber < .3:
+							anglehistsep300n[h] += total_prob
+						if sepnumber < .5:
+							anglehistsep500n[h] += total_prob
+						if sepnumber < .7:
+							anglehistsep700n[h] += total_prob
 					elif b == 50:
 						h = b
-						anglehist[h] += 2*total_prob
 						if sepnumber < .1:
-							anglehistsep100[h] += 2*total_prob
-						elif sepnumber < .3:
-							anglehistsep300[h] += 2*total_prob
-						elif sepnumber < .5:
-							anglehistsep500[h] += 2*total_prob
-						else:
-							anglehistsep700[h] += 2*total_prob
+							anglehistsep100n[h] += 2*total_prob
+						if sepnumber < .3:
+							anglehistsep300n[h] += 2*total_prob
+						if sepnumber < .5:
+							anglehistsep500n[h] += 2*total_prob
+						if sepnumber < .7:
+							anglehistsep700n[h] += 2*total_prob
 					else:
 						h = 50 - (b-50)
-						anglehist[h] += total_prob
 						if sepnumber < .1:
-							anglehistsep100[h] += total_prob
-						elif sepnumber < .3:
-							anglehistsep300[h] += total_prob
-						elif sepnumber < .5:
-							anglehistsep500[h] += total_prob
+							anglehistsep100n[h] += total_prob
+						if sepnumber < .3:
+							anglehistsep300n[h] += total_prob
+						if sepnumber < .5:
+							anglehistsep500n[h] += total_prob
+						if sepnumber < .7:
+							anglehistsep700n[h] += total_prob
+
+				if generalmass == True and sepnumber < .3 and binned == True and cluster in generallist:
+					if b < 50:
+						h = b
+						if totalmass < 5E14:
+							anglehistmass5b[h] += total_prob
+						elif totalmass < 10E14:
+							anglehistmass10b[h] += total_prob
+						elif totalmass < 15E14:
+							anglehistmass15b[h] += total_prob
 						else:
-							anglehistsep700[h] += total_prob
+							anglehistmasshighb[h] += total_prob
+					elif b == 50:
+						h = b
+						if totalmass < 5E14:
+							anglehistmass5b[h] += 2*total_prob
+						elif totalmass < 10E14:
+							anglehistmass10b[h] += 2*total_prob
+						elif totalmass < 15E14:
+							anglehistmass15b[h] += 2*total_prob
+						else:
+							anglehistmasshighb[h] += 2*total_prob
+					else:
+						h = 50 - (b-50)
+						if totalmass < 5E14:
+							anglehistmass5b[h] += total_prob_mass
+						elif totalmass < 10E14:
+							anglehistmass10b[h] += total_prob_mass
+						elif totalmass < 15E14:
+							anglehistmass15b[h] += total_prob_mass
+						else:
+							anglehistmasshighb[h] += total_prob_mass
 
-
+				if generalpericenter == True and binned == True and cluster in generallist:
+					if b < 50:
+						h = b
+						if sepnumber < .1:
+							anglehistsep100b[h] += total_prob
+						elif sepnumber < .3:
+							anglehistsep300b[h] += total_prob
+						elif sepnumber < .5:
+							anglehistsep500b[h] += total_prob
+						else:
+							anglehistsep700b[h] += total_prob
+					elif b == 50:
+						h = b
+						if sepnumber < .1:
+							anglehistsep100b[h] += 2*total_prob
+						elif sepnumber < .3:
+							anglehistsep300b[h] += 2*total_prob
+						elif sepnumber < .5:
+							anglehistsep500b[h] += 2*total_prob
+						else:
+							anglehistsep700b[h] += 2*total_prob
+					else:
+						h = 50 - (b-50)
+						if sepnumber < .1:
+							anglehistsep100b[h] += total_prob
+						elif sepnumber < .3:
+							anglehistsep300b[h] += total_prob
+						elif sepnumber < .5:
+							anglehistsep500b[h] += total_prob
+						else:
+							anglehistsep700b[h] += total_prob
 
 				if individualclusters == True and sepnumber < .3 and cluster in clusterlist:
 					if b < 50:
@@ -252,10 +328,16 @@ for cluster in listofpairs:
 						h = 50 - (b-50)
 						anglehist[h] += total_prob_mass
 
-	if generalmass == True and cluster in generallist:
-		fm.write( cluster[0] + '= [' + str(anglehistmass5) + ', ' + str(anglehistmass10) + ', ' + str(anglehistmass15) + ', ' + str(anglehistmasshigh) +']\n')
+	if generalmass == True and cluster in generallist and binned == True:
+		fmb.write( cluster[0] + '= [' + str(anglehistmass5b) + ', ' + str(anglehistmass10b) + ', ' + str(anglehistmass15b) + ', ' + str(anglehistmasshighb) +']\n')
 	if generalpericenter == True and cluster in generallist:
-		fp.write( cluster[0] + '= [' + str(anglehistsep100) + ', ' + str(anglehistsep300) + ', ' + str(anglehistsep500) + ', ' + str(anglehistsep700) +']\n')
+		fpb.write( cluster[0] + '= [' + str(anglehistsep100b) + ', ' + str(anglehistsep300b) + ', ' + str(anglehistsep500b) + ', ' + str(anglehistsep700b) +']\n')
+
+	if generalmass == True and cluster in generallist and notbinned == True:
+		fmn.write( cluster[0] + '= [' + str(anglehistmass5n) + ', ' + str(anglehistmass10n) + ', ' + str(anglehistmass15n) + ', ' + str(anglehistmasshighn) +']\n')
+	if generalpericenter == True and cluster in generallist:
+		fpn.write( cluster[0] + '= [' + str(anglehistsep100n) + ', ' + str(anglehistsep300n) + ', ' + str(anglehistsep500n) + ', ' + str(anglehistsep700n) +']\n')
+
 	if individualclusters == True and cluster in clusterlist:
 		fc.write( cluster[0] + '= ' + str(anglehist) + '\n')
 	f.write( cluster[0] + '= ' + str(anglehist) + '\n')
