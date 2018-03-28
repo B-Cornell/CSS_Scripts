@@ -340,7 +340,6 @@ for cluster in listofpairs:
 
 	if individualclusters == True and cluster in clusterlist:
 		fc.write( cluster[0] + '= ' + str(anglehist) + '\n')
-	f.write( cluster[0] + '= ' + str(anglehist) + '\n')
 
 	plt.hist(pericenterhistogram)
 plt.show()
