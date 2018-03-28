@@ -14,10 +14,6 @@ for a in sys.argv:
 	if a == 'clusters':
 		individualclusters = True
 
-print generalmass
-print generalpericenter
-print individualclusters
-
 
 
 pairid, rockstara, rockstarb, massa, massb, radiusa, radiusb, separation, vel_z, vel_y, passsnap, lowsep, passvel_z, passvel_y = np.loadtxt('trees/treefilepostmerger.csv', delimiter = ',', unpack = True)
@@ -58,24 +54,25 @@ C3 = ['C3', 1.5, .2, 1000, 150, 1E14, 1E14, 1E14, 1E14]
 
 #Pairs
 listofpairs = []
+#f = open('ThreePDFsxxx.txt', "w")
 generallist = [A1,B1,C1,A2,B2,C2,A3,B3,C3]
 clusterlist = [musketball, ciza, rxcj1314, bullet, bulletrevised, a1240, a3411, macsj1149, macsj1149revised, macsj1752, zwci0008, zwci1856, a3667, a3667revised, elgordo, a3376, macsj0025]
 
 
 if generalmass == True:
-	fm = open("GeneralMassPDFsxxx.txt", "w")
+	fm = open("GeneralMassPDFs_masselif_periless3.txt", "w")
 	for a in generallist: listofpairs.append(a)
 if generalpericenter == True:
-	fp = open("GeneralPericenterPDFsxxx.txt", "w")
+	fp = open("GeneralPericenterPDFselif.txt", "w")
 	if generalmass == False:
 		for a in generallist: listofpairs.append(a)
 if individualclusters == True:
-	fc = open("ClusterPDFsxxx.txt", "w")
+	fc = open("ClusterPDFs.txt", "w")
 	for a in clusterlist: listofpairs.append(a)
 #assign input values for each cluster
 
 for cluster in listofpairs:
-	print cluster
+	print cluster[0]
 	sepmean   = cluster[1]
 	sepsig  = cluster[2]
 
@@ -199,13 +196,13 @@ for cluster in listofpairs:
 						h = 50 - (b-50)
 						anglehist[h] += total_prob
 						if totalmass < 5E14:
-							anglehistmass5[h] += total_prob
+							anglehistmass5[h] += total_prob_mass
 						elif totalmass < 10E14:
-							anglehistmass10[h] += total_prob
+							anglehistmass10[h] += total_prob_mass
 						elif totalmass < 15E14:
-							anglehistmass15[h] += total_prob
+							anglehistmass15[h] += total_prob_mass
 						else:
-							anglehistmasshigh[h] += total_prob
+							anglehistmasshigh[h] += total_prob_mass
 
 				if generalpericenter == True and cluster in generallist:
 					if b < 50:
@@ -247,23 +244,21 @@ for cluster in listofpairs:
 				if individualclusters == True and sepnumber < .3 and cluster in clusterlist:
 					if b < 50:
 						h = b
-						anglehist[h] += total_prob
+						anglehist[h] += total_prob_mass
 					elif b == 50:
 						h = b
-						anglehist[h] += 2*total_prob
+						anglehist[h] += 2*total_prob_mass
 					else:
 						h = 50 - (b-50)
-						anglehist[h] += total_prob
+						anglehist[h] += total_prob_mass
 
 	if generalmass == True and cluster in generallist:
 		fm.write( cluster[0] + '= [' + str(anglehistmass5) + ', ' + str(anglehistmass10) + ', ' + str(anglehistmass15) + ', ' + str(anglehistmasshigh) +']\n')
 	if generalpericenter == True and cluster in generallist:
 		fp.write( cluster[0] + '= [' + str(anglehistsep100) + ', ' + str(anglehistsep300) + ', ' + str(anglehistsep500) + ', ' + str(anglehistsep700) +']\n')
 	if individualclusters == True and cluster in clusterlist:
-		fc.write( cluster[0] + '= [' + str(anglehist) + ']\n')
+		fc.write( cluster[0] + '= ' + str(anglehist) + '\n')
+	f.write( cluster[0] + '= ' + str(anglehist) + '\n')
 
 	plt.hist(pericenterhistogram)
 plt.show()
-
-
-#have everything write to the correct files and you're golden pony boy
