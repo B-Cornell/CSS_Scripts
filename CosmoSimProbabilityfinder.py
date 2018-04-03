@@ -3,7 +3,7 @@ import math
 import matplotlib.pyplot as plt
 import sys
 
-generalmass, generalpericenter, individualclusters, binned, notbinned = False, False, False, False, False
+generalmass, generalpericenter, individualclusters, binned, notbinned, three = False, False, False, False, False, False
 for a in sys.argv:
 	if a == 'mass':
 		generalmass = True
@@ -15,13 +15,15 @@ for a in sys.argv:
 		binned = True
 	if a == 'cuts':
 		notbinned = True
+	if a == 'three':
+		three = True
 
 
 
 
 pairid, rockstara, rockstarb, massa, massb, radiusa, radiusb, separation, vel_z, vel_y, passsnap, lowsep, passvel_z, passvel_y = np.loadtxt('trees/treefilepostmerger.csv', delimiter = ',', unpack = True)
 
-pericenterhistogram = []
+
 #This lists all the inputs for each system
 #Name, Separation, Separation Sigma, LOS Vel, LOS Vel Sigma, MassA, MassA Sigma, MassB, MassB Sigma]
 musketball = ['Musketball', 1.0, .14, 670, 330, 3.1E14, 1.2E14, 1.7E14, 2.0E14]
@@ -55,9 +57,11 @@ C3 = ['C3', 1.5, .2, 1000, 150, 1E14, 1E14, 1E14, 1E14]
 
 #Pairs
 listofpairs = []
+
 #f = open('ThreePDFsxxx.txt', "w")
 generallist = [A1,B1,C1,A2,B2,C2,A3,B3,C3]
-clusterlist = [musketball, ciza, rxcj1314, bullet, bulletrevised, a1240, a3411, macsj1149, macsj1752, zwci0008, zwci1856, a3667, elgordo, a3376, macsj0025]
+clusterlist = [musketball, ciza, rxcj1314, bullet, a1240, a3411, macsj1149, macsj1752, zwci0008, zwci1856, a3667, elgordo, a3376, macsj0025]
+revisedlist = [bulletrevised, a3667, macsj0025]
 
 if notbinned == True:
 	if generalmass == True:
@@ -78,6 +82,12 @@ if binned == True:
 if individualclusters == True:
 	fc = open("DataFiles/ClusterPDFs.txt", "w")
 	for a in clusterlist: listofpairs.append(a)
+if three == True:
+	ft = open("DataFiles/RevisedPDFs.txt", "w")
+	if individualclusters == True:
+		listofpairs.append(bulletrevised)
+	else:
+		for a in revisedlist: listofpairs.append(a)
 #assign input values for each cluster
 
 for cluster in listofpairs:
@@ -133,12 +143,12 @@ for cluster in listofpairs:
 
 		mass_b_b_prob = (math.exp(((massbmean-massb[i])*(massb[i]-massbmean))/(2*massbsig*massbsig)))
 
-		totalmass = massa[i] + massb[i]
+		totalmass = (massa[i] + massb[i])/1E15
+
 		pass_rel_vel_angle = math.atan(abs(passvel_y[i]/passvel_z[i]))
 
 		#calculate rough estimate of the pericenter distance of this sim pair
 		sepnumber = lowsep[i]*math.sin(pass_rel_vel_angle)
-		pericenterhistogram.append(sepnumber)
 
 
 		area_counter = 0
@@ -328,6 +338,30 @@ for cluster in listofpairs:
 						h = 50 - (b-50)
 						anglehist[h] += total_prob_mass
 
+				if three == True and sepnumber < .3 and cluster in revisedlist:
+					if cluster == bulletrevised:
+						if b < 50:
+							h = b
+							anglehist[h] += total_prob_mass
+						elif b == 50:
+							h = b
+							anglehist[h] += 2*total_prob_mass
+						else:
+							h = 50 - (b-50)
+							anglehist[h] += total_prob_mass
+					else:
+						if b < 50:
+							h = b
+							anglehist[h] += total_prob
+						elif b == 50:
+							h = b
+							anglehist[h] += 2*total_prob
+						else:
+							h = 50 - (b-50)
+							anglehist[h] += total_prob
+
+
+
 	if generalmass == True and cluster in generallist and binned == True:
 		fmb.write( cluster[0] + '= [' + str(anglehistmass5b) + ', ' + str(anglehistmass10b) + ', ' + str(anglehistmass15b) + ', ' + str(anglehistmasshighb) +']\n')
 	if generalpericenter == True and cluster in generallist:
@@ -340,6 +374,5 @@ for cluster in listofpairs:
 
 	if individualclusters == True and cluster in clusterlist:
 		fc.write( cluster[0] + '= ' + str(anglehist) + '\n')
-
-	plt.hist(pericenterhistogram)
-plt.show()
+	if three == True and cluster in revisedlist:
+		ft.write( cluster[0] + '= ' + str(anglehist) + '\n')
