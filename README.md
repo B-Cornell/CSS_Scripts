@@ -69,7 +69,7 @@ Code- CosmoSimProbabilityFinder.py
 
 Input-treesfile
 
-Output- anglehistsbysmallsep.txt
+Output- DataFiles/XXX.txt
 
 ----------
 
@@ -77,6 +77,6 @@ Output- anglehistsbysmallsep.txt
 
 Code- PDFmaker.py
 
-Input- (copied anglehistsbysmallsep.txt into PDFmaker.py)
+Input- (copied DataFiles into PDFmaker.py)
 
 Output- PDFs of each cluster
