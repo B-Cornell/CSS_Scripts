@@ -277,10 +277,10 @@ if masscut == True:
 		for r in range(3):
 			axes[r,c].set_yticks([])
 			axes[r,c].set_xticks([])
-			axes[r,c].plot(x[0:-1], anglesno[6-r*3+c],  c = 'k', label = '15E14 < Total Mass')
-			axes[r,c].plot(x[0:-1], angles3[6-r*3+c],  c = 'g', label = 'Total Mass < 15E14')
-			axes[r,c].plot(x[0:-1], angles2[6-r*3+c],  c = 'r', label = 'Total Mass < 10E14')
-			axes[r,c].plot(x[0:-1], angles1[6-r*3+c], c = 'b', label = 'Total Mass <  5E14')
+			axes[r,c].plot(x[0:-1], anglesno[6-r*3+c],  c = 'k', label = r'$M_{Total} < 4\times10^{15}$')
+			axes[r,c].plot(x[0:-1], angles3[6-r*3+c],  c = 'g', label = r'$M_{Total} < 1.5\times10^{15}$')
+			axes[r,c].plot(x[0:-1], angles2[6-r*3+c],  c = 'r', label = r'$M_{Total} < 1\times10^{15}$')
+			axes[r,c].plot(x[0:-1], angles1[6-r*3+c], c = 'b', label = r'$M_{Total} <  5\times10^{14}$')
 
 
 
@@ -333,10 +333,10 @@ if massbin == True:
 		for r in range(3):
 			axes[r,c].set_yticks([])
 			axes[r,c].set_xticks([])
-			axes[r,c].plot(x[0:-1], anglesno[6-r*3+c],  c = 'k', label = '15E14 < Total Mass')
-			axes[r,c].plot(x[0:-1], angles3[6-r*3+c],  c = 'g', label = '10E14 < Total Mass < 15E14')
-			axes[r,c].plot(x[0:-1], angles2[6-r*3+c],  c = 'r', label = '5E14 < Total Mass < 10E14')
-			axes[r,c].plot(x[0:-1], angles1[6-r*3+c], c = 'b', label = 'Total Mass <  5E14')
+			axes[r,c].plot(x[0:-1], anglesno[6-r*3+c],  c = 'k', label = r'$M_{Total} > 1.5\times10^{15}$')
+			axes[r,c].plot(x[0:-1], angles3[6-r*3+c],  c = 'g', label = r'$1\times10^{15} < M_{Total} < 1.5\times10^{15}$')
+			axes[r,c].plot(x[0:-1], angles2[6-r*3+c],  c = 'r', label = r'$5\times10^{14} < M_{Total} < 1\times10^{15}$')
+			axes[r,c].plot(x[0:-1], angles1[6-r*3+c], c = 'b', label = r'$M_{Total} <  5\times10^{14}$')
 
 
 
@@ -384,10 +384,10 @@ if pericut == True:
 		for r in range(3):
 			axes[r,c].set_yticks([])
 			axes[r,c].set_xticks([])
-			axes[r,c].plot(x, angles1[6-r*3+c], c = 'b', label = 'Pericenter < 100kpc')
-			axes[r,c].plot(x, angles2[6-r*3+c],  c = 'r', label = 'Pericenter < 300kpc')
-			axes[r,c].plot(x, angles3[6-r*3+c],  c = 'g', label = 'Pericenter < 500kpc')
-			axes[r,c].plot(x, anglesno[6-r*3+c],  c = 'k', label = 'Pericenter < 700kpc')
+			axes[r,c].plot(x, angles1[6-r*3+c], c = 'b', label = r'$P < 100kpc$')
+			axes[r,c].plot(x, angles2[6-r*3+c],  c = 'r', label = r'$P < 300kpc$')
+			axes[r,c].plot(x, angles3[6-r*3+c],  c = 'g', label = r'$P < 500kpc$')
+			axes[r,c].plot(x, anglesno[6-r*3+c],  c = 'k', label = r'$P < 700kpc$')
 
 	axes[2,0].set_xlabel('500 kpc')
 	axes[2,1].set_xlabel('1000 kpc\n\nSeparation')
@@ -432,10 +432,10 @@ if peribin == True:
 		for r in range(3):
 			axes[r,c].set_yticks([])
 			axes[r,c].set_xticks([])
-			axes[r,c].plot(x, angles1[6-r*3+c], c = 'b', label = 'Pericenter < 100kpc')
-			axes[r,c].plot(x, angles2[6-r*3+c],  c = 'r', label = '100kpc < Pericenter < 300kpc')
-			axes[r,c].plot(x, angles3[6-r*3+c],  c = 'g', label = '300kpc < Pericenter < 500kpc')
-			axes[r,c].plot(x, anglesno[6-r*3+c],  c = 'k', label = '500kpc < Pericenter < 700kpc')
+			axes[r,c].plot(x, angles1[6-r*3+c], c = 'b', label = r'$P < 100kpc$')
+			axes[r,c].plot(x, angles2[6-r*3+c],  c = 'r', label = r'$100kpc < P < 300kpc$')
+			axes[r,c].plot(x, angles3[6-r*3+c],  c = 'g', label = r'$300kpc < P < 500kpc$')
+			axes[r,c].plot(x, anglesno[6-r*3+c],  c = 'k', label = r'$500kpc < P < 700kpc$')
 
 	axes[2,0].set_xlabel('500 kpc')
 	axes[2,1].set_xlabel('1000 kpc\n\nSeparation')
