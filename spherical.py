@@ -97,6 +97,9 @@ for cluster in listofpairs:
 		fig = plt.figure()
 		ax = fig.add_subplot(111, projection='3d')
 		ax.scatter(xs, ys, zs, c = prob, cmap = 'binary', edgecolors = 'w')
+		ax.xaxis.set_ticklabels([])
+		ax.yaxis.set_ticklabels([])
+		ax.zaxis.set_ticklabels([])
 
 
 		plt.show()
