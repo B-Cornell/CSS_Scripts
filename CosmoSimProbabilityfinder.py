@@ -3,7 +3,7 @@ import math
 import matplotlib.pyplot as plt
 import sys
 
-generalmass, generalpericenter, individualclusters, binned, notbinned, three = False, False, False, False, False, False
+generalmass, generalpericenter, individualclusters, binned, notbinned, three, random = False, False, False, False, False, False, False
 for a in sys.argv:
 	if a == 'mass':
 		generalmass = True
@@ -17,6 +17,8 @@ for a in sys.argv:
 		notbinned = True
 	if a == 'three':
 		three = True
+	if a == 'random':
+		random = True
 
 
 
@@ -61,7 +63,8 @@ listofpairs = []
 #f = open('ThreePDFsxxx.txt', "w")
 generallist = [A1,B1,C1,A2,B2,C2,A3,B3,C3]
 clusterlist = [musketball, ciza, rxcj1314, bullet, a1240, a3411, macsj1149, macsj1752, zwci0008, zwci1856, a3667, elgordo, a3376, macsj0025]
-revisedlist = [bulletrevised, a3667, macsj0025]
+revisedlist = [bulletrevised, a3667, macsj1149]
+randomlist = [macsj0025,macsj1149]
 
 if notbinned == True:
 	if generalmass == True:
@@ -88,6 +91,9 @@ if three == True:
 		listofpairs.append(bulletrevised)
 	else:
 		for a in revisedlist: listofpairs.append(a)
+if random == True:
+	fr = open("DataFiles/ExtraPDFs.txt", "w")
+	for a in randomlist: listofpairs.append(a)
 #assign input values for each cluster
 
 for cluster in listofpairs:
@@ -105,6 +111,7 @@ for cluster in listofpairs:
 	massbsig  = cluster[8]
 
 	anglehist    = [0] * 51
+	anglehistrandom = [0] * 51
 
 	anglehistsep100b = [0] * 51
 	anglehistsep300b = [0] * 51
@@ -360,6 +367,17 @@ for cluster in listofpairs:
 							h = 50 - (b-50)
 							anglehist[h] += total_prob
 
+				if random == True and sepnumber < .3 and cluster in randomlist:
+					if b < 50:
+						h = b
+						anglehistrandom[h] += total_prob_mass
+					elif b == 50:
+						h = b
+						anglehistrandom[h] += 2*total_prob_mass
+					else:
+						h = 50 - (b-50)
+						anglehistrandom[h] += total_prob_mass
+
 
 
 	if generalmass == True and cluster in generallist and binned == True:
@@ -376,3 +394,5 @@ for cluster in listofpairs:
 		fc.write( cluster[0] + '= ' + str(anglehist) + '\n')
 	if three == True and cluster in revisedlist:
 		ft.write( cluster[0] + '= ' + str(anglehist) + '\n')
+	if random == True and cluster in randomlist:
+		fr.write( cluster[0] + ' = ' + str(anglehistrandom) + '\n')
