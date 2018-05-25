@@ -5,11 +5,11 @@ Project constraining the angle alpha of well known galaxy cluster mergers.
 
 1. Retrieve all possible clusters at Redshift 0 over 6e13 solar masses. Sorted by x position.
 
-Code- SQL on cosmosim website
+Code- SQL on Cosmosim website
 
 Input- BigMDPL database
 
-Output- BigMDPL_6e13_X_depthfirstid.csv
+Output- CSVFiles/BigMDPL_6E13_Snap_##.csv
 
 -----------
 
@@ -17,66 +17,58 @@ Output- BigMDPL_6e13_X_depthfirstid.csv
 
 Code- CosmoSimSeparationCutoff.py
 
-Input- BigMDPL_6e13_X_depthfirstid.csv
+Input- CSVFiles/BigMDPL_6e13_X_depthfirstid.csv
 
-Output- reduced_cosmo_pairs.txt
+Output- reduced_cosmo_pairs_increased_timeframe_##.txt
 
 -----------
 
 3. Check all of the pairs are bimodal. This makes sure we only use pairs where both halos aren't part of any other pairs
 
-Code-uniquepair.cpp
+Code- uniquepairs.cpp
 
 Input- reduced_cosmo_pairs.txt
 
-Output- uniquedata.csv
+Output- UniquePairData/separation_data_increased_timeframe##.csv
 
 ----------
 
-4. Get tree data for all possible pairs
+4. Catalog the treehistory of each halo pair
 
-Code- SQL on website
+Code- treemerger_increased_timeframe.py
 
-Input- BigMDPL database
+Input- UniquePairData/separation_data_increased_timeframe##.csv
 
-Output- trees/Trees_sn68_m6e13_X00_Y00.csv
-
-----------
-
-5. Attach MainleafIds to each of the halos in the viable pairs.
-
-Code- mainleaffinder.py
-
-Input- uniquedata.csv
-
-Output- realmainleafdfifds.csv
+Output- full_tree_data_##.txt
 
 ----------
 
-6. Find all pairs that have been within .35 Mpc in the last 1.8 Gyrs
+5. Check that each pair has merged exactly once in the past
 
-Code- treesfinder[X00].py
+Code- doubleperi.py
 
-Input- realmainleafdfids.csv trees/Trees_sn68_m6e13_X00_Y00.csv
+Input- full_tree_data_##.txt
 
-Output- treefile_X00_Y00.csv
-
-----------
-
-7. Manually push all of the treefiles together and run probability finding code
-
-Code- CosmoSimProbabilityFinder.py
-
-Input-treesfile
-
-Output- DataFiles/XXX.txt
+Output- final_data_##.txt
 
 ----------
 
-8. Show all the PDFs of each cluster at different impact parameters
+6. Perform the final calculations on each pair that create the PDFs we are interested in
+
+Code- ProbabilityFinder.py
+
+Input- final_data_##.txt
+
+Output- DataFiles/ClusterPDFs.txt
+
+----------
+
+7. Displays the PDFs and CDFs of each cluster
 
 Code- PDFmaker.py
 
-Input- (copied DataFiles into PDFmaker.py)
+Input- DataFiles/ClusterPDFs.txt
 
-Output- PDFs of each cluster
+Output- Plots/
+
+----------
