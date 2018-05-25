@@ -3,7 +3,7 @@ import math
 import matplotlib.pyplot as plt
 import sys
 
-f = open('ClusterPDF_datanothing.txt', 'w')
+
 
 
 
@@ -40,12 +40,13 @@ C3 = ['C3', 1.5, .2, 1000, 150, 1E14, 1E14, 1E14, 1E14]
 
 
 #Pairs
-listofpairs = [bullet]
+listofpairs = [musketball, ciza, rxcj1314, bullet, bulletrevised, a1240, a3411, macsj1149, macsj1752, zwci0008, zwci1856, a3667, elgordo, elgordorevised, a3376, macsj0025]
 
 probabilityhistogram = []
 
 
 for cluster in listofpairs:
+	f = open('ClusterPDF_' + cluster[0] + '.txt', 'w')
 	massa, massb, separation, vel_z, vel_y, pericenter = np.loadtxt('final_data_' + cluster[9] + '.txt', delimiter = ',', unpack = True)
 	print cluster[0]
 	sepmean   = cluster[1]
