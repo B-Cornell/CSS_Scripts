@@ -19,7 +19,7 @@ int main(int argc, char *argv[]){
   pair_t calculation_pair;
   string halo_a_str, halo_b_str, pair_id_str, temp;
   int i,j,k, unique = 1;
-  string save_directory = "/home/CosmoSim/IncreasedTimeFrame/";
+  string save_directory = "/home/CosmoSim/";
 
 
   cout << "------------------------------------------" << endl;
