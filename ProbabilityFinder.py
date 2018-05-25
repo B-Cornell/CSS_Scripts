@@ -46,8 +46,8 @@ probabilityhistogram = []
 
 
 for cluster in listofpairs:
-	f = open('ClusterPDF_' + cluster[0] + '.txt', 'w')
-	massa, massb, separation, vel_z, vel_y, pericenter = np.loadtxt('final_data_' + cluster[9] + '.txt', delimiter = ',', unpack = True)
+	f = open('DataFiles/ClusterPDF_' + cluster[0] + '.txt', 'w')
+	massa, massb, separation, vel_z, vel_y, pericenter = np.loadtxt('final_data/final_data_' + cluster[9] + '.txt', delimiter = ',', unpack = True)
 	print cluster[0]
 	sepmean   = cluster[1]
 	sepsig  = cluster[2]
