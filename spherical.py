@@ -1,3 +1,7 @@
+# This creates a 3D spherical plot showing how the probability finder actually works.
+# It will produce a sphere where each point's color represents how well that analog fits a general cluster from that vantage point
+
+
 import numpy as np
 import math
 import matplotlib.pyplot as plt
@@ -6,12 +10,10 @@ from mpl_toolkits.mplot3d import Axes3D
 pairid, rockstara, rockstarb, massa, massb, radiusa, radiusb, separation, vel_z, vel_y, passsnap, lowsep, passvel_z, passvel_y = np.loadtxt('trees/treefilepostmerger.csv', delimiter = ',', unpack = True)
 
 
-#This lists all the inputs for each system
-#Name, Separation, Separation Sigma, LOS Vel, LOS Vel Sigma, MassA, MassA Sigma, MassB, MassB Sigma]
 
 general = ['general', .65, .2, 1000, 100]
- 
-listofpairs =[general] 
+
+listofpairs =[general]
 
 
 #assign input values for each cluster
@@ -36,12 +38,12 @@ for cluster in listofpairs:
 	h = 0
 	#cycle through the simulation catalog
 	for i in range(20):
-		
+
 		rel_vel_angle = math.atan(abs(passvel_y[i]/passvel_z[i]))
 		#calculate rough estimate of the impact parameter of this sim pair
 		sepnumber = lowsep[i]*math.sin(rel_vel_angle)
-		
-	
+
+
 
 		area_counter = 0
 		total_divisor_points = 0
@@ -85,7 +87,7 @@ for cluster in listofpairs:
 
 					sep_prob = (math.exp(((sepmean-obssep)*(obssep-sepmean))/(2*sepsig*sepsig)))
 
-				
+
 
 
 					total_prob = vel_prob*sep_prob
@@ -93,7 +95,7 @@ for cluster in listofpairs:
 					ys.append(math.sin(theta)*math.sin(phi))
 					xs.append(math.sin(theta)*math.cos(phi))
 					prob.append(total_prob)
-		
+
 		fig = plt.figure()
 		ax = fig.add_subplot(111, projection='3d')
 		ax.scatter(xs, ys, zs, c = prob, cmap = 'binary', edgecolors = 'w')
@@ -103,4 +105,3 @@ for cluster in listofpairs:
 
 
 		plt.show()
-
