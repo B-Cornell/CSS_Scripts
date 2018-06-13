@@ -1,5 +1,5 @@
 # CSS_Scripts
-Project constraining the angle alpha of well known galaxy cluster mergers.
+Project constraining the angle well known galaxy cluster mergers make with the plane of the sky.
 
 -----------
 
