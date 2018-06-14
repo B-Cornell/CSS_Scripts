@@ -1,9 +1,12 @@
+#Creates PDFs and CDFs of all the clusters
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
 
+#get user input to know which plot to show
 clusterpdf, clustercdf, three, massbin, masscut, peribin, pericut, normalize, figuretitles, printconfidencelevels, help = False, False, False, False, False, False, False, False, False, False, False
-
 for a in sys.argv:
 	if a == 'pdf':
 		clusterpdf = True
@@ -37,13 +40,14 @@ if help == True:
 
 x = [3.975693356373876e-16, 1.7999999999999996, 3.599999999999999, 5.4, 7.199999999999998, 9.0, 10.8, 12.6, 14.399999999999997, 16.2, 18.0, 19.8, 21.6, 23.399999999999995, 25.2, 27.0, 28.799999999999994, 30.599999999999998, 32.4, 34.2, 36.0, 37.8, 39.6, 41.4, 43.2, 44.99999999999999, 46.79999999999999, 48.599999999999994, 50.4, 52.2, 54.0, 55.79999999999999, 57.59999999999999, 59.39999999999999, 61.199999999999996, 63.0, 64.8, 66.6, 68.4, 70.19999999999999, 72.0, 73.8, 75.6, 77.39999999999999, 79.2, 80.99999999999999, 82.8, 84.6, 86.4, 88.2, 90]
 
-
+#function normalizes the PDF such that the max value is 1
 def normed(clust):
 	summation = max(clust)
 	for a in range(len(clust)):
 		clust[a] = clust[a]/summation
 	return clust
 
+#turns a PDF into a CDF with max = 1
 def cumulative(clust):
 	clustr = np.cumsum(clust)
 	maxi = max(clustr)
@@ -52,6 +56,7 @@ def cumulative(clust):
 
 	return clustr
 
+#finds the confidence interval of the clusters at the specified percentage
 def conflevel(alpha,perc):
 	alpha = cumulative(alpha)
 	p = 0
