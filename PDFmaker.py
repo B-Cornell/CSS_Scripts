@@ -147,7 +147,7 @@ if clusterpdf == True:
 	axes[1,2].set_title("MACS J1752.0+4440")
 	axes[2,0].plot(x,RXCJ1314)
 	axes[2,0].set_title("RXCJ 1314.4-2515")
-	axes[2,0].set_ylabel(r'P($\theta$)', fontsize = 40)
+	axes[2,0].set_ylabel(r'P($\theta$)', fontsize = 25)
 	axes[2,1].plot(x,ZWCI0008)
 	axes[2,1].set_title("ZwCl 0008.8+5215")
 	axes[2,2].plot(x,ZWCI1856)
@@ -164,7 +164,7 @@ if clusterpdf == True:
 	axes[4,0].set_title("DLSCL J0916.2+2951")
 	axes[4,1].plot(x,MACSJ0025)
 	axes[4,1].set_title("MACS J0025.-1222")
-	axes[4,1].set_xlabel('\n' + r'$\theta$ (deg)', fontsize = 40)
+	axes[4,1].set_xlabel('\n' + r'$\theta$ (deg)', fontsize = 25)
 	'''
 	axes[0,0].grid()
 	axes[0,1].grid()
@@ -289,7 +289,7 @@ if clustercdf == True:
 	axes[2,0].plot(x,cumulative(RXCJ1314))
 	axes[2,0].grid()
 	axes[2,0].set_title("RXCJ 1314.4-2515")
-	axes[2,0].set_ylabel(r'CDF($<\theta$)', fontsize = 35)
+	axes[2,0].set_ylabel(r'CDF($<\theta$)', fontsize = 25)
 	axes[2,1].plot(x,cumulative(ZWCI0008))
 	axes[2,1].grid()
 	axes[2,1].set_title("ZwCl 0008.8+5215")
@@ -313,7 +313,7 @@ if clustercdf == True:
 	axes[4,1].plot(x,cumulative(MACSJ0025))
 	axes[4,1].grid()
 	axes[4,1].set_title("MACS J0025.4-1222")
-	axes[4,1].set_xlabel('\n' + r'$\theta$ (deg)', fontsize = 40)
+	axes[4,1].set_xlabel('\n' + r'$\theta$ (deg)', fontsize = 25)
 
 
 	for num in [0,1,2]:
@@ -359,8 +359,8 @@ if three == True:
 	axes[1].set_title("Abell 3667")
 	axes[2].plot(x,ElGordorevised)
 	axes[2].set_title("ACT-CL J0102")
-	axes[1].set_xlabel('\n' + r'$\theta$ (deg)', fontsize = 40)
-	axes[0].set_ylabel(r'P($\theta$)', fontsize = 40)
+	axes[1].set_xlabel('\n' + r'$\theta$ (deg)', fontsize = 25)
+	axes[0].set_ylabel(r'P($\theta$)', fontsize = 25)
 
 
 
@@ -414,10 +414,10 @@ if masscut == True:
 			axl[0,c].set_xticklabels([])
 			axl[1,c].set_xticklabels([])
 			axl[r,c].set_yticklabels([])
-			axl[r,c].plot(x[0:-1], anglesno[6-r*3+c],  c = 'k', label = r'$M_{Total} < 4\times10^{15}$')
-			axl[r,c].plot(x[0:-1], angles3[6-r*3+c],  c = 'g', label = r'$M_{Total} < 1.5\times10^{15}$')
-			axl[r,c].plot(x[0:-1], angles2[6-r*3+c],  c = 'r', label = r'$M_{Total} < 1\times10^{15}$')
-			axl[r,c].plot(x[0:-1], angles1[6-r*3+c], c = 'b', label = r'$M_{Total} <  5\times10^{14}$')
+			axl[r,c].plot(x[0:-1], anglesno[6-r*3+c],  c = 'k', label = r'$M_{Total} < 4\times10^{15} M_{\odot}$')
+			axl[r,c].plot(x[0:-1], angles3[6-r*3+c],  c = 'g', label = r'$M_{Total} < 1.5\times10^{15} M_{\odot}$')
+			axl[r,c].plot(x[0:-1], angles2[6-r*3+c],  c = 'r', label = r'$M_{Total} < 1\times10^{15} M_{\odot}$')
+			axl[r,c].plot(x[0:-1], angles1[6-r*3+c], c = 'b', label = r'$M_{Total} <  5\times10^{14} M_{\odot}$')
 	for c in range(3):
 		for r in range(3):
 			axr[r,c] = axl[r,c].twinx()
@@ -429,9 +429,9 @@ if masscut == True:
 	axr[2,2].set_ylabel('\n\n0' + r' $\pm$ ' + '150 km/s', rotation = 270, labelpad = 50,fontsize = 16)
 
 	axl[0,0].set_ylabel('')
-	axl[1,0].set_ylabel(r'P($\theta$)',fontsize = 40)
+	axl[1,0].set_ylabel(r'P($\theta$)',fontsize = 25)
 	axl[2,0].set_ylabel('')
-	axl[2,1].set_xlabel('\n' + r'$\theta$ (deg)',fontsize = 40)
+	axl[2,1].set_xlabel('\n' + r'$\theta$ (deg)',fontsize = 25)
 	axl[0,0].set_title("\n\n500" + r" $\pm$ "+ "200 kpc",fontsize = 16)
 	axl[0,1].set_title("Separation\n\n1000" + r" $\pm$ "+ "200 kpc",fontsize = 16)
 	axl[0,2].set_title("\n\n1500" + r" $\pm$ "+ "200 kpc",fontsize = 16)
@@ -547,10 +547,10 @@ if pericut == True:
 			axl[0,c].set_xticklabels([])
 			axl[1,c].set_xticklabels([])
 			axl[r,c].set_yticklabels([])
-			axl[r,c].plot(x, angles1[6-r*3+c], c = 'b', label = r'$P < 100kpc$')
-			axl[r,c].plot(x, angles2[6-r*3+c],  c = 'r', label = r'$P < 300kpc$')
-			axl[r,c].plot(x, angles3[6-r*3+c],  c = 'g', label = r'$P < 500kpc$')
-			axl[r,c].plot(x, anglesno[6-r*3+c],  c = 'k', label = r'$P < 700kpc$')
+			axl[r,c].plot(x, angles1[6-r*3+c], c = 'b', label = r'$r_{p} < 100$ kpc')
+			axl[r,c].plot(x, angles2[6-r*3+c],  c = 'r', label = r'$r_{p} < 300$ kpc')
+			axl[r,c].plot(x, angles3[6-r*3+c],  c = 'g', label = r'$r_{p} < 500$ kpc')
+			axl[r,c].plot(x, anglesno[6-r*3+c],  c = 'k', label = r'$r_{p} < 700$ kpc')
 	for c in range(3):
 		for r in range(3):
 			axr[r,c] = axl[r,c].twinx()
@@ -562,9 +562,9 @@ if pericut == True:
 	axr[2,2].set_ylabel('\n\n0' + r' $\pm$ ' + '150 km/s', rotation = 270, labelpad = 50,fontsize = 16)
 
 	axl[0,0].set_ylabel('')
-	axl[1,0].set_ylabel(r'P($\theta$)',fontsize = 40)
+	axl[1,0].set_ylabel(r'P($\theta$)',fontsize = 25)
 	axl[2,0].set_ylabel('')
-	axl[2,1].set_xlabel('\n' + r'$\theta$ (deg)',fontsize = 40)
+	axl[2,1].set_xlabel('\n' + r'$\theta$ (deg)',fontsize = 25)
 	axl[0,0].set_title("\n\n500" + r" $\pm$ "+ "200 kpc",fontsize = 16)
 	axl[0,1].set_title("Separation\n\n1000" + r" $\pm$ "+ "200 kpc",fontsize = 16)
 	axl[0,2].set_title("\n\n1500" + r" $\pm$ "+ "200 kpc",fontsize = 16)
